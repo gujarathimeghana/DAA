@@ -1,0 +1,23 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char words[][20] = {"mass","as","hero","superhero"};
+    int n = 4;
+
+    int i, j;
+
+    printf("Output: ");
+
+    for(i = 0; i < n; i++) {
+        for(j = 0; j < n; j++) {
+            if(i != j && strstr(words[j], words[i])) {
+                printf("%s ", words[i]);
+                break;
+            }
+        }
+    }
+
+    return 0;
+}
+Output: as hero
