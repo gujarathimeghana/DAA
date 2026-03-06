@@ -1,0 +1,52 @@
+#include <stdio.h>
+
+void kClosest(int points[][2], int n, int k) {
+    int dist[n], i, j, temp;
+
+    for(i = 0; i < n; i++)
+        dist[i] = points[i][0]*points[i][0] + points[i][1]*points[i][1];
+
+    for(i = 0; i < n-1; i++) {
+        for(j = i+1; j < n; j++) {
+            if(dist[i] > dist[j]) {
+                temp = dist[i];
+                dist[i] = dist[j];
+                dist[j] = temp;
+
+                temp = points[i][0];
+                points[i][0] = points[j][0];
+                points[j][0] = temp;
+
+                temp = points[i][1];
+                points[i][1] = points[j][1];
+                points[j][1] = temp;
+            }
+        }
+    }
+
+    printf("Closest Points:\n");
+    for(i = 0; i < k; i++)
+        printf("[%d, %d]\n", points[i][0], points[i][1]);
+}
+
+int main() {
+    int points1[][2] = {{1,3},{-2,2},{5,8},{0,1}};
+    int points2[][2] = {{1,3},{-2,2}};
+    
+    printf("Test Case 1:\n");
+    kClosest(points1,4,2);
+
+    printf("\nTest Case 2:\n");
+    kClosest(points2,2,1);
+
+    return 0;
+}
+output:
+Test Case 1:
+Closest Points:
+[-2, 2]
+[0, 1]
+
+Test Case 2:
+Closest Points:
+[-2, 2]
