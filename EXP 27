@@ -1,0 +1,48 @@
+#include <stdio.h>
+
+struct Point{
+    int x,y;
+};
+
+int orientation(struct Point p, struct Point q, struct Point r){
+    int val = (q.y-p.y)*(r.x-q.x) - (q.x-p.x)*(r.y-q.y);
+
+    if(val>0) return 1;
+    if(val<0) return -1;
+    return 0;
+}
+
+int main(){
+
+    struct Point p[]={{1,1},{4,6},{8,1},{0,0},{3,3}};
+    int n=5;
+
+    printf("Convex Hull:\n");
+
+    for(int i=0;i<n;i++){
+        for(int j=i+1;j<n;j++){
+
+            int left=0,right=0;
+
+            for(int k=0;k<n;k++){
+
+                if(k==i || k==j)
+                continue;
+
+                int o=orientation(p[i],p[j],p[k]);
+
+                if(o>0) left++;
+                if(o<0) right++;
+            }
+
+            if(left==0 || right==0){
+                printf("(%d,%d) ",p[i].x,p[i].y);
+                printf("(%d,%d)\n",p[j].x,p[j].y);
+            }
+        }
+    }
+
+    return 0;
+}
+OUTPUT
+Convex Hull: (0,0) (1,1) (8,1) (4,6)
