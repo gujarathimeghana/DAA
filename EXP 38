@@ -1,0 +1,34 @@
+#include <stdio.h>
+
+int main()
+{
+    int a[] = {3,9,14,19,25,31,42,47,53};
+    int n = 9, key = 31;
+    int low = 0, high = n - 1, mid;
+
+    while(low <= high)
+    {
+        mid = (low + high) / 2;
+        printf("low=%d high=%d mid=%d value=%d\n", low, high, mid, a[mid]);
+
+        if(a[mid] == key)
+        {
+            printf("Position = %d\n", mid + 1);
+            break;
+        }
+        else if(key > a[mid])
+            low = mid + 1;
+        else
+            high = mid - 1;
+    }
+
+    if(low > high)
+        printf("Element not found");
+
+    return 0;
+}
+OUTPUT:
+low=0 high=8 mid=4 value=25
+low=5 high=8 mid=6 value=42
+low=5 high=5 mid=5 value=31
+Position = 6
