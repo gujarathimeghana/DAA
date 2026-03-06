@@ -1,0 +1,28 @@
+#include <stdio.h>
+
+int findPeak(int nums[], int n) {
+    int low = 0, high = n - 1;
+
+    while (low < high) {
+        int mid = (low + high) / 2;
+
+        if (nums[mid] < nums[mid + 1])
+            low = mid + 1;
+        else
+            high = mid;
+    }
+
+    return low;
+}
+
+int main() {
+    int nums[] = {1,2,3,1};
+    int n = 4;
+
+    int peak = findPeak(nums, n);
+    printf("Peak index: %d", peak);
+
+    return 0;
+}
+OUTPUT
+Peak index: 2
