@@ -1,0 +1,31 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char words[][20] = {"abc","car","ada","racecar","cool"};
+    int n = 5;
+    int i, j, len, flag, found = 0;
+    for(i = 0; i < n; i++) {
+        len = strlen(words[i]);
+        flag = 1;   
+        for(j = 0; j < len/2; j++) {
+            if(words[i][j] != words[i][len-1-j]) {
+                flag = 0;   
+                break;
+            }
+        }
+        if(flag == 1) {
+            printf("%s", words[i]);
+            found = 1;
+            break;
+        }
+    }
+
+    if(found == 0)
+        printf("\"\"");
+
+    return 0;
+}
+
+Output
+ada
