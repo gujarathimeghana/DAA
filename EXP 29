@@ -1,0 +1,64 @@
+#include <stdio.h>
+
+#define N 3
+
+int minCost = 9999;
+int bestAssign[N];
+
+int total_cost(int assign[], int cost[N][N]) {
+    int sum = 0;
+    for(int i = 0; i < N; i++)
+        sum += cost[i][assign[i]];
+    return sum;
+}
+
+void swap(int *a, int *b) {
+    int t = *a;
+    *a = *b;
+    *b = t;
+}
+
+void permute(int arr[], int l, int r, int cost[N][N]) {
+    if(l == r) {
+        int c = total_cost(arr, cost);
+        if(c < minCost) {
+            minCost = c;
+            for(int i=0;i<N;i++)
+                bestAssign[i] = arr[i];
+        }
+        return;
+    }
+
+    for(int i=l;i<=r;i++) {
+        swap(&arr[l], &arr[i]);
+        permute(arr, l+1, r, cost);
+        swap(&arr[l], &arr[i]);
+    }
+}
+
+int main() {
+
+    int cost[N][N] = {
+        {3,10,7},
+        {8,5,12},
+        {4,6,9}
+    };
+
+    int arr[N] = {0,1,2};
+
+    permute(arr,0,N-1,cost);
+
+    printf("Optimal Assignment:\n");
+    for(int i=0;i<N;i++)
+        printf("(worker %d, task %d)\n", i+1, bestAssign[i]+1);
+
+    printf("Total Cost: %d\n", minCost);
+
+    return 0;
+}
+OUTPUT 
+Optimal Assignment:
+(worker 1, task 1)
+(worker 2, task 2)
+(worker 3, task 3)
+Total Cost: 17
