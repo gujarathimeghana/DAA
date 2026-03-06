@@ -1,0 +1,31 @@
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    int x[] = {1,4,7,3};
+    int y[] = {2,5,8,1};
+    int n = 4;
+
+    float minDist = 9999, dist;
+    int p1 = 0, p2 = 0;
+
+    for(int i = 0; i < n; i++) {
+        for(int j = i + 1; j < n; j++) {
+            dist = sqrt(pow(x[i]-x[j],2) + pow(y[i]-y[j],2));
+
+            if(dist < minDist) {
+                minDist = dist;
+                p1 = i;
+                p2 = j;
+            }
+        }
+    }
+
+    printf("Closest pair: (%d,%d) - (%d,%d)\n", x[p1],y[p1],x[p2],y[p2]);
+    printf("Minimum distance: %f", minDist);
+
+    return 0;
+}
+Output:
+Closest pair: (1,2) - (3,1)
+Minimum distance: 2.236068
