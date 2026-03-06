@@ -1,0 +1,65 @@
+#include <stdio.h>
+#include <math.h>
+
+#define N 4
+
+double distance(double x1,double y1,double x2,double y2){
+    return sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
+}
+
+double pathDistance(int path[], double city[][2]){
+    double dist=0;
+    for(int i=0;i<N-1;i++)
+        dist+=distance(city[path[i]][0],city[path[i]][1],city[path[i+1]][0],city[path[i+1]][1]);
+
+    dist+=distance(city[path[N-1]][0],city[path[N-1]][1],city[path[0]][0],city[path[0]][1]);
+    return dist;
+}
+
+void swap(int *a,int *b){
+    int t=*a;
+    *a=*b;
+    *b=t;
+}
+
+void permute(int path[],int l,int r,double city[][2],double *minDist,int bestPath[]){
+    if(l==r){
+        double d=pathDistance(path,city);
+
+        if(d<*minDist){
+            *minDist=d;
+            for(int i=0;i<N;i++)
+                bestPath[i]=path[i];
+        }
+        return;
+    }
+
+    for(int i=l;i<=r;i++){
+        swap(&path[l],&path[i]);
+        permute(path,l+1,r,city,minDist,bestPath);
+        swap(&path[l],&path[i]);
+    }
+}
+
+int main(){
+
+    double city[N][2]={{0,0},{2,3},{5,2},{6,6}};
+    int path[N]={0,1,2,3};
+    int bestPath[N];
+    double minDist=1e9;
+
+    permute(path,1,N-1,city,&minDist,bestPath);
+
+    printf("Minimum Distance: %.2f\n",minDist);
+    printf("Shortest Path: ");
+
+    for(int i=0;i<N;i++)
+        printf("%d -> ",bestPath[i]);
+
+    printf("%d",bestPath[0]);
+
+    return 0;
+}
+OUTPUT
+Minimum Distance: 18.21
+Shortest Path: 0 -> 1 -> 2 -> 3 -> 0
