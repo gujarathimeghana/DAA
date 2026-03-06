@@ -1,0 +1,61 @@
+#include <stdio.h>
+
+int total_value(int items[], int count, int values[]){
+    int sum = 0;
+    for(int i=0;i<count;i++)
+        sum += values[items[i]];
+    return sum;
+}
+
+int is_feasible(int items[], int count, int weights[], int capacity){
+    int sum = 0;
+    for(int i=0;i<count;i++)
+        sum += weights[items[i]];
+    return sum <= capacity;
+}
+
+int main(){
+
+    int weights[] = {2,3,1};
+    int values[] = {4,5,3};
+    int n = 3;
+    int capacity = 4;
+
+    int bestValue = 0;
+    int bestMask = 0;
+
+    for(int mask=0; mask < (1<<n); mask++){
+
+        int items[10], count=0;
+
+        for(int i=0;i<n;i++){
+            if(mask & (1<<i)){
+                items[count++] = i;
+            }
+        }
+
+        if(is_feasible(items,count,weights,capacity)){
+            int val = total_value(items,count,values);
+
+            if(val > bestValue){
+                bestValue = val;
+                bestMask = mask;
+            }
+        }
+    }
+
+    printf("Optimal Selection: ");
+    for(int i=0;i<n;i++){
+        if(bestMask & (1<<i))
+            printf("%d ", i);
+    }
+
+    printf("\nTotal Value: %d", bestValue);
+
+    return 0;
+}
+OUTPUT:
+Optimal Selection: 0 2
+Total Value: 7
+Optimal Selection: 0 1 2
+Total Value: 10
