@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include <stdlib.h>
+int cmp(const void *a,const void *b){return(*(int*)a-*(int*)b);}
+int findMax(int arr[],int n){
+if(n==0)return-1;
+qsort(arr,n,sizeof(int),cmp);
+return arr[n-1];
+}
+int main(){
+int a1[]={};
+int n1=0;
+if(n1==0)printf("None\n");else printf("%d\n",findMax(a1,n1));
+int a2[]={5};
+int n2=1;
+if(n2==0)printf("None\n");else printf("%d\n",findMax(a2,n2));
+int a3[]={3,3,3,3,3};
+int n3=5;
+if(n3==0)printf("None\n");else printf("%d\n",findMax(a3,n3));
+return 0;
+}
+OUTPUT:
+None
+5
+3
