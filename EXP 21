@@ -1,0 +1,25 @@
+#include <stdio.h>
+
+int main() {
+    int arr[] = {2,3,4,7,11};
+    int n = 5;
+    int k = 5;
+
+    int i = 0, num = 1, missing = 0;
+
+    while (missing < k) {
+        if (i < n && arr[i] == num) {
+            i++;
+        } else {
+            missing++;
+            if (missing == k) {
+                printf("Output: %d", num);
+                return 0;
+            }
+        }
+        num++;
+    }
+
+    return 0;
+}
+Output: 9
